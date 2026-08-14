@@ -129,6 +129,27 @@ def main():
             print("")
         sys.exit(0)
 
+    if cmd == "restore-defaults":
+        omarchy_path = os.environ.get("OMARCHY_PATH", "/usr/share/omarchy")
+        # Restore screensaver
+        default_screensaver = os.path.join(omarchy_path, "logo.txt")
+        if os.path.exists(default_screensaver):
+            with open(default_screensaver, "r", encoding="utf-8") as f:
+                safe_save_file(SCREENSAVER_PATH, f.read())
+        elif os.path.exists(SCREENSAVER_PATH + ".bak"):
+            shutil.copy2(SCREENSAVER_PATH + ".bak", SCREENSAVER_PATH)
+
+        # Restore about logo
+        default_about = os.path.join(omarchy_path, "icon.txt")
+        if os.path.exists(default_about):
+            with open(default_about, "r", encoding="utf-8") as f:
+                safe_save_file(ABOUT_PATH, f.read())
+        elif os.path.exists(ABOUT_PATH + ".bak"):
+            shutil.copy2(ABOUT_PATH + ".bak", ABOUT_PATH)
+
+        print(json.dumps({"success": True, "restored": True}))
+        sys.exit(0)
+
     # Rendering commands
     text = sys.argv[2] if len(sys.argv) > 2 else "OMARCHY"
     font = sys.argv[3] if len(sys.argv) > 3 else DEFAULT_FONT

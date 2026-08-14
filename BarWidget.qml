@@ -83,6 +83,11 @@ BarWidget {
     root.statusMessage = "Copied to clipboard!"
   }
 
+  function restoreDefaults() {
+    runAction("restore-defaults")
+    root.statusMessage = "Default branding restored!"
+  }
+
   Component.onCompleted: {
     refreshArt()
   }
@@ -92,6 +97,7 @@ BarWidget {
     function preview(): void { root.triggerPreview() }
     function saveScreensaver(): void { root.saveScreensaver() }
     function saveAbout(): void { root.saveAbout() }
+    function restoreDefaults(): void { root.restoreDefaults() }
     function openStudio(): void { studioWindow.open = true }
     function closeStudio(): void { studioWindow.open = false }
     function toggle(): void { studioWindow.open = !studioWindow.open }
@@ -213,7 +219,7 @@ BarWidget {
     BorderSurface {
       id: studioCard
       anchors.centerIn: parent
-      width: Style.space(740)
+      width: Style.space(780)
       implicitHeight: cardContent.implicitHeight + Style.space(36)
       radius: Style.cornerRadius > 0 ? Style.cornerRadius + 2 : 8
       color: Color.popups.background
@@ -408,15 +414,15 @@ BarWidget {
 
         PanelSeparator { foreground: Color.foreground }
 
-        // Action Buttons Grid: Preview, Save, Save About Logo, Copy
+        // Action Buttons Grid (5 columns: Preview, Save, Save About Logo, Copy, Restore Defaults)
         Grid {
           width: parent.width
-          columns: 4
+          columns: 5
           spacing: Style.spacing.xs
 
           // Button 1: Preview
           BorderSurface {
-            width: (parent.width - Style.spacing.xs * 3) / 4
+            width: (parent.width - Style.spacing.xs * 4) / 5
             height: Style.space(38)
             radius: Style.cornerRadius > 0 ? Style.cornerRadius : 4
             color: Style.controlFill(false, btn1Mouse.containsMouse, Color.foreground, Color.accent)
@@ -424,7 +430,7 @@ BarWidget {
 
             Row {
               anchors.centerIn: parent
-              spacing: 6
+              spacing: 5
               Text { text: "󱄄"; color: Color.accent; font.pixelSize: Style.font.body; anchors.verticalCenter: parent.verticalCenter }
               Text { text: "Preview"; color: Color.foreground; font.pixelSize: Style.font.caption; font.bold: true; anchors.verticalCenter: parent.verticalCenter }
             }
@@ -439,7 +445,7 @@ BarWidget {
 
           // Button 2: Save
           BorderSurface {
-            width: (parent.width - Style.spacing.xs * 3) / 4
+            width: (parent.width - Style.spacing.xs * 4) / 5
             height: Style.space(38)
             radius: Style.cornerRadius > 0 ? Style.cornerRadius : 4
             color: Style.controlFill(false, btn2Mouse.containsMouse, Color.foreground, Color.accent)
@@ -447,7 +453,7 @@ BarWidget {
 
             Row {
               anchors.centerIn: parent
-              spacing: 6
+              spacing: 5
               Text { text: "\udb80\udc19"; color: Color.foreground; font.pixelSize: Style.font.body; anchors.verticalCenter: parent.verticalCenter }
               Text { text: "Save"; color: Color.foreground; font.pixelSize: Style.font.caption; font.bold: true; anchors.verticalCenter: parent.verticalCenter }
             }
@@ -462,7 +468,7 @@ BarWidget {
 
           // Button 3: Save About Logo
           BorderSurface {
-            width: (parent.width - Style.spacing.xs * 3) / 4
+            width: (parent.width - Style.spacing.xs * 4) / 5
             height: Style.space(38)
             radius: Style.cornerRadius > 0 ? Style.cornerRadius : 4
             color: Style.controlFill(false, btn3Mouse.containsMouse, Color.foreground, Color.accent)
@@ -470,9 +476,9 @@ BarWidget {
 
             Row {
               anchors.centerIn: parent
-              spacing: 6
+              spacing: 5
               Text { text: "\udb81\udde0"; color: Color.foreground; font.pixelSize: Style.font.body; anchors.verticalCenter: parent.verticalCenter }
-              Text { text: "Save About Logo"; color: Color.foreground; font.pixelSize: Style.font.caption; font.bold: true; anchors.verticalCenter: parent.verticalCenter }
+              Text { text: "Save About Logo"; color: Color.foreground; font.pixelSize: Style.font.caption; font.bold: true; anchors.verticalCenter: parent.verticalCenter; elide: Text.ElideRight }
             }
             MouseArea {
               id: btn3Mouse
@@ -485,7 +491,7 @@ BarWidget {
 
           // Button 4: Copy
           BorderSurface {
-            width: (parent.width - Style.spacing.xs * 3) / 4
+            width: (parent.width - Style.spacing.xs * 4) / 5
             height: Style.space(38)
             radius: Style.cornerRadius > 0 ? Style.cornerRadius : 4
             color: Style.controlFill(false, btn4Mouse.containsMouse, Color.foreground, Color.accent)
@@ -493,7 +499,7 @@ BarWidget {
 
             Row {
               anchors.centerIn: parent
-              spacing: 6
+              spacing: 5
               Text { text: "\udb80\udec5"; color: Color.foreground; font.pixelSize: Style.font.body; anchors.verticalCenter: parent.verticalCenter }
               Text { text: "Copy"; color: Color.foreground; font.pixelSize: Style.font.caption; font.bold: true; anchors.verticalCenter: parent.verticalCenter }
             }
@@ -503,6 +509,29 @@ BarWidget {
               hoverEnabled: true
               cursorShape: Qt.PointingHandCursor
               onClicked: root.copyArt()
+            }
+          }
+
+          // Button 5: Restore Defaults
+          BorderSurface {
+            width: (parent.width - Style.spacing.xs * 4) / 5
+            height: Style.space(38)
+            radius: Style.cornerRadius > 0 ? Style.cornerRadius : 4
+            color: Style.controlFill(false, btn5Mouse.containsMouse, Color.foreground, Color.accent)
+            borderSpec: Border.controlSpec(btn5Mouse.containsMouse ? "hover-cursor" : "normal", Color.foreground, Color.accent)
+
+            Row {
+              anchors.centerIn: parent
+              spacing: 5
+              Text { text: "\udb80\uddbb"; color: Color.foreground; font.pixelSize: Style.font.body; anchors.verticalCenter: parent.verticalCenter }
+              Text { text: "Restore Defaults"; color: Color.foreground; font.pixelSize: Style.font.caption; font.bold: true; anchors.verticalCenter: parent.verticalCenter; elide: Text.ElideRight }
+            }
+            MouseArea {
+              id: btn5Mouse
+              anchors.fill: parent
+              hoverEnabled: true
+              cursorShape: Qt.PointingHandCursor
+              onClicked: root.restoreDefaults()
             }
           }
         }

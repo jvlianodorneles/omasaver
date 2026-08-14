@@ -16,9 +16,10 @@
   - **20 curated font presets** in a 1-click grid, including Omarchy's signature `delta_corps_priest_1`, `slant`, `banner`, `doom`, `epic`, `starwars`, `cyberlarge`, and more.
   - Monospaced, scrollable live preview box.
 - **👁️ Fullscreen Screensaver Preview:** Test the `ttfx` screensaver animation in full screen with one click, and automatically return to the studio when dismissed.
-- **💾 1-Click System Branding Sync:**
+- **💾 1-Click System Branding Sync & Restore:**
   - **Save:** Update `~/.config/omarchy/branding/screensaver.txt` (with automatic `.bak` backup).
   - **Save About Logo:** Update `~/.config/omarchy/branding/about.txt` (Fastfetch/system branding).
+  - **Restore Defaults:** 1-click restoration of Omarchy's original screensaver (`logo.txt`) and about logo (`icon.txt`).
 - **📋 Clipboard Integration:** Instantly copy generated ASCII art to clipboard (`wl-copy` / `pyperclip`).
 - **🛠️ Automation CLI:** Scriptable Python backend for shell scripts and system hooks.
 
@@ -75,6 +76,9 @@ python3 scripts/omasaver-ctl.py save-screensaver "OMARCHY" delta_corps_priest_1
 
 # Update Omarchy about logo
 python3 scripts/omasaver-ctl.py save-about "OMARCHY" delta_corps_priest_1
+
+# Restore original Omarchy defaults
+python3 scripts/omasaver-ctl.py restore-defaults
 
 # Launch screensaver animation preview
 python3 scripts/omasaver-ctl.py preview "OMARCHY" delta_corps_priest_1
