@@ -1,25 +1,24 @@
-# 🎨 Omasaver
+# 🎨 omasaver
 
 > **A native Omarchy 4 bar widget and studio for live ASCII art generation, screensaver management (`ttfx`), and branding customization.**
 
-`omasaver` transforms text into beautiful ASCII art instantly, integrating seamlessly into your Omarchy 4 desktop workflow and top bar. Easily generate, customize, test, and sync your ASCII art across your Omarchy screensaver (`screensaver.txt`) and system about branding (`about.txt`).
+`omasaver` transforms text into beautiful ASCII art instantly, integrating seamlessly into your Omarchy 4 desktop workflow and top bar. Easily generate, customize, preview, and sync your ASCII art across your Omarchy screensaver (`screensaver.txt`) and system about branding (`about.txt`).
 
 ---
 
 ## ✨ Features
 
-- **🚀 Top Bar Widget:** Quick-access widget on your Omarchy bar with real-time ASCII status.
-- **⚡ Interactive Studio Popup:**
-  - Instant live ASCII rendering as you type.
-  - One-click font presets including Omarchy's signature `delta_corps_priest_1`, `slant`, `banner`, `doom`, `starwars`, and more.
+- **🚀 Top Bar Widget:** Quick-access widget on your Omarchy bar (`󱄄 omasaver`) with live status.
+- **⚡ Centered Studio Modal:**
+  - Fast, responsive ASCII rendering as you type with auto-focus and full Wayland keyboard capture.
+  - **20 curated font presets** in a 1-click grid, including Omarchy's signature `delta_corps_priest_1`, `slant`, `banner`, `doom`, `epic`, `starwars`, `cyberlarge`, and more.
   - Monospaced, scrollable live preview box.
-- **👁️ Live Screensaver Preview:** Test the `ttfx` screensaver animation in full screen with one click.
-- **💾 1-Click Branding Sync:**
-  - Update `~/.config/omarchy/branding/screensaver.txt` with automatic backup.
-  - Update `~/.config/omarchy/branding/about.txt` (Fastfetch/Logo).
+- **👁️ Fullscreen Screensaver Preview:** Test the `ttfx` screensaver animation in full screen with one click, and automatically return to the studio when dismissed.
+- **💾 1-Click System Branding Sync:**
+  - **Save:** Update `~/.config/omarchy/branding/screensaver.txt` (with automatic `.bak` backup).
+  - **Save About Logo:** Update `~/.config/omarchy/branding/about.txt` (Fastfetch/system branding).
 - **📋 Clipboard Integration:** Instantly copy generated ASCII art to clipboard (`wl-copy` / `pyperclip`).
-- **🖥️ Standalone Terminal Studio:** Launch the full interactive Textual TUI studio directly from the widget or terminal.
-- **🛠️ Automation CLI:** Fully scriptable backend CLI for shell scripts and system hooks.
+- **🛠️ Automation CLI:** Scriptable Python backend for shell scripts and system hooks.
 
 ---
 
@@ -44,7 +43,7 @@ omarchy plugin add https://github.com/jvlianodorneles/omasaver.git --enable --ye
    omarchy plugin enable dorneles.omasaver
    ```
 
-3. (Optional) Install Python dependencies for the full terminal TUI:
+3. (Optional) Install Python dependencies:
    ```bash
    pip install -r ~/.config/omarchy/plugins/dorneles.omasaver/requirements.txt
    ```
@@ -55,15 +54,15 @@ omarchy plugin add https://github.com/jvlianodorneles/omasaver.git --enable --ye
 
 | Action | Control |
 | :--- | :--- |
-| **Open Studio Popup** | Left-click on the top bar icon |
-| **Launch Full Terminal Studio** | Right-click on the top bar icon |
+| **Open Studio Modal** | Click on `󱄄 omasaver` on the top bar |
 | **Instant Screensaver Preview** | Middle-click on the top bar icon |
+| **Close Studio** | Press `Esc` or click outside the card |
 
 ---
 
 ## ⌨️ CLI Usage
 
-`omasaver` includes a command-line backend utility for terminal power users:
+`omasaver` includes a command-line backend utility for terminal power users and automation scripts:
 
 ```bash
 # Render ASCII art directly
@@ -84,12 +83,18 @@ python3 scripts/omasaver-ctl.py copy "OMARCHY" delta_corps_priest_1
 
 ---
 
+## 🔗 Related Projects
+
+- **[tuisaver](https://github.com/jvlianodorneles/tuisaver):** Standalone terminal TUI studio built with Python Textual.
+
+---
+
 ## 🛠 Dependencies
 
 - **[Omarchy 4](https://omarchy.org/)** (Quickshell / Qt6 QML)
 - **[ttfx](https://github.com/ChrisBuilds/terminaltexteffects)** (Terminal text effects engine)
 - **[Pyfiglet](https://github.com/patorjk/figlet.js)** (FIGlet ASCII engine)
-- **[Textual](https://github.com/Textualize/textual)** (Full TUI Studio)
+- **[pyperclip](https://github.com/asweigart/pyperclip)** / `wl-copy` (Clipboard integration)
 
 ---
 

@@ -28,13 +28,19 @@ POPULAR_FONTS = [
     "block",
     "doom",
     "epic",
+    "starwars",
     "isometric1",
     "alligator",
     "graffiti",
-    "larry3d",
     "speed",
-    "starwars",
     "sub-zero",
+    "cyberlarge",
+    "larry3d",
+    "shadow",
+    "ogre",
+    "colossal",
+    "cosmic",
+    "caligraphy",
 ]
 
 
@@ -175,19 +181,6 @@ def main():
             print(json.dumps({"success": True, "preview_ended": True}))
         else:
             print(json.dumps({"success": True, "launched": False, "warning": "omarchy-launch-screensaver not found"}))
-        sys.exit(0)
-
-    elif cmd == "open-tui":
-        plugin_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        tuisaver_path = os.path.join(plugin_dir, "tuisaver.py")
-        if not os.path.exists(tuisaver_path):
-            tuisaver_path = os.path.expanduser("~/tuisaver/tuisaver.py")
-        term = shutil.which("xdg-terminal-exec") or shutil.which("foot") or shutil.which("alacritty") or shutil.which("ghostty") or shutil.which("kitty")
-        if term:
-            subprocess.Popen([term, "-e", "python3", tuisaver_path])
-            print(json.dumps({"success": True}))
-        else:
-            print(json.dumps({"error": "No terminal emulator found"}))
         sys.exit(0)
 
     print(json.dumps({"error": f"Unknown command: {cmd}"}))
