@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "dorneles.omasaver",
+  "name": "Omasaver",
+  "version": "1.0.0",
+  "author": "Dorneles",
+  "description": "A native Omarchy 4 bar widget and studio for live ASCII art generation, screensaver management (ttfx), and branding customization.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Omasaver",
+    "description": "ASCII Art Studio & Screensaver Hub for Omarchy",
+    "category": "Customization",
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "defaultFont": "delta_corps_priest_1",
+      "showLabel": true
+    },
+    "schema": [
+      {
+        "key": "defaultFont",
+        "type": "enum",
+        "label": "Default Font",
+        "options": [
+          "delta_corps_priest_1",
+          "standard",
+          "slant",
+          "banner",
+          "block",
+          "doom",
+          "epic",
+          "starwars"
+        ],
+        "defaultValue": "delta_corps_priest_1",
+        "description": "Signature font to use for ASCII art generation."
+      },
+      {
+        "key": "showLabel",
+        "type": "boolean",
+        "label": "Show Label on Top Bar",
+        "defaultValue": true,
+        "description": "Display 'Omasaver' text next to the icon on horizontal bars."
+      }
+    ]
+  }
+}
