@@ -22,6 +22,7 @@ BarWidget {
   property string renderedArt: ""
   property string statusMessage: "Ready"
   property bool isBusy: false
+  property bool isPreviewing: false
 
   readonly property string ctlScriptPath: Qt.resolvedUrl("scripts/omasaver-ctl.py").toString().replace(/^file:\/\//, "")
 
@@ -62,6 +63,7 @@ BarWidget {
   }
 
   function triggerPreview() {
+    root.isPreviewing = true
     studioWindow.open = false
     runAction("preview")
   }
@@ -119,6 +121,10 @@ BarWidget {
     id: actionProc
     onExited: function(exitCode) {
       root.isBusy = false
+      if (root.isPreviewing) {
+        root.isPreviewing = false
+        studioWindow.open = true
+      }
       actionTimer.restart()
     }
   }

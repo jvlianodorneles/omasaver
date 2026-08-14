@@ -2,6 +2,7 @@
 import sys
 import os
 import json
+import time
 import shutil
 import subprocess
 
@@ -108,7 +109,7 @@ def main():
             except Exception as e:
                 print(f"Error reading screensaver: {e}")
         else:
-            print("No screensaver saved yet.")
+            print("")
         sys.exit(0)
 
     if cmd == "read-about":
@@ -119,9 +120,10 @@ def main():
             except Exception as e:
                 print(f"Error reading about: {e}")
         else:
-            print("No about logo saved yet.")
+            print("")
         sys.exit(0)
 
+    # Rendering commands
     text = sys.argv[2] if len(sys.argv) > 2 else "OMARCHY"
     font = sys.argv[3] if len(sys.argv) > 3 else DEFAULT_FONT
     align = sys.argv[4] if len(sys.argv) > 4 else "left"
@@ -156,11 +158,21 @@ def main():
     elif cmd == "preview":
         safe_save_file(SCREENSAVER_PATH, art)
         if shutil.which("omarchy-launch-screensaver"):
-            subprocess.Popen(["omarchy-launch-screensaver", "force"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            print(json.dumps({"success": True, "launched": True}))
+            proc = subprocess.Popen(["omarchy-launch-screensaver", "force"])
+            proc.wait()
+            # Give a brief moment for the screensaver windows to map
+            time.sleep(0.4)
+            # Wait while screensaver is active
+            while True:
+                res = subprocess.run(["pgrep", "-f", "[o]rg.omarchy.screensaver"], stdout=subprocess.DEVNULL)
+                if res.returncode != 0:
+                    break
+                time.sleep(0.25)
+            print(json.dumps({"success": True, "preview_ended": True}))
         elif shutil.which("ttfx"):
-            subprocess.Popen(["ttfx", "-i", SCREENSAVER_PATH, "--random-effect"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            print(json.dumps({"success": True, "launched": True}))
+            proc = subprocess.Popen(["ttfx", "-i", SCREENSAVER_PATH, "--random-effect"])
+            proc.wait()
+            print(json.dumps({"success": True, "preview_ended": True}))
         else:
             print(json.dumps({"success": True, "launched": False, "warning": "omarchy-launch-screensaver not found"}))
         sys.exit(0)
