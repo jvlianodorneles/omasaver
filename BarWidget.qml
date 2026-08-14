@@ -134,8 +134,8 @@ BarWidget {
     anchors.fill: parent
     bar: root.bar
     text: root.vertical || !root.showLabelSetting
-      ? "\udb81\udf04"
-      : "\udb81\udf04 omasaver"
+      ? "󱄄"
+      : "󱄄 omasaver"
     active: studioWindow.open
     dimmed: !studioWindow.open
     useActiveColor: true
@@ -221,7 +221,7 @@ BarWidget {
           spacing: Style.spacing.sm
 
           Text {
-            text: "\udb81\udf04"
+            text: "󱄄"
             color: Color.accent
             font.family: Style.font.family
             font.pixelSize: Style.font.title
@@ -407,7 +407,7 @@ BarWidget {
             Row {
               anchors.centerIn: parent
               spacing: 4
-              Text { text: "\udb81\udf04"; color: Color.accent; font.pixelSize: Style.font.body; anchors.verticalCenter: parent.verticalCenter }
+              Text { text: "󱄄"; color: Color.accent; font.pixelSize: Style.font.body; anchors.verticalCenter: parent.verticalCenter }
               Text { text: "Preview"; color: Color.foreground; font.pixelSize: Style.font.caption; font.bold: true; anchors.verticalCenter: parent.verticalCenter }
             }
             MouseArea {
