@@ -49,10 +49,6 @@ BarWidget {
     actionProc.running = true
   }
 
-  function openTui() {
-    runAction("open-tui")
-  }
-
   function triggerPreview() {
     runAction("preview")
     root.statusMessage = "Launching screensaver preview..."
@@ -139,7 +135,7 @@ BarWidget {
     bar: root.bar
     text: root.vertical || !root.showLabelSetting
       ? "\udb81\udf04"
-      : "\udb81\udf04 Omasaver"
+      : "\udb81\udf04 omasaver"
     active: studioWindow.open
     dimmed: !studioWindow.open
     useActiveColor: true
@@ -147,10 +143,9 @@ BarWidget {
     fontSize: Style.font.body
     horizontalMargin: 6
     verticalPadding: 2
-    tooltipText: "Omasaver: ASCII Art Studio & Screensaver Hub\n(Left-click: Open Studio | Right-click: Launch Full TUI | Middle-click: Preview Screensaver)"
+    tooltipText: "omasaver: ASCII Art Studio & Screensaver Hub\n(Click: Open Studio | Middle-click: Preview Screensaver)"
     onPressed: function(btn) {
-      if (btn === Qt.RightButton) root.openTui()
-      else if (btn === Qt.MiddleButton) root.triggerPreview()
+      if (btn === Qt.MiddleButton) root.triggerPreview()
       else studioWindow.open = !studioWindow.open
     }
   }
@@ -234,11 +229,11 @@ BarWidget {
           }
 
           Column {
-            width: parent.width - Style.space(90)
+            width: parent.width - Style.space(50)
             anchors.verticalCenter: parent.verticalCenter
 
             Text {
-              text: "Omasaver Studio"
+              text: "omasaver"
               color: Color.foreground
               font.family: Style.font.family
               font.pixelSize: Style.font.subtitle
@@ -250,16 +245,6 @@ BarWidget {
               color: root.statusMessage === "Ready" ? Qt.darker(Color.foreground, 1.4) : Color.accent
               font.family: Style.font.family
               font.pixelSize: Style.font.caption
-            }
-          }
-
-          Button {
-            iconText: "\udb80\udf93"
-            tooltipText: "Launch Full Terminal TUI Studio"
-            anchors.verticalCenter: parent.verticalCenter
-            onClicked: {
-              studioWindow.open = false
-              root.openTui()
             }
           }
 
