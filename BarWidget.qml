@@ -26,14 +26,26 @@ BarWidget {
   readonly property string ctlScriptPath: Qt.resolvedUrl("scripts/omasaver-ctl.py").toString().replace(/^file:\/\//, "")
 
   readonly property var fontPresets: [
-    { id: "delta_corps_priest_1", name: "⚡ Omarchy (Delta)", desc: "Signature font" },
-    { id: "slant", name: "Slant", desc: "Italics modern" },
-    { id: "standard", name: "Standard", desc: "Clean terminal" },
-    { id: "banner", name: "Banner", desc: "Bold blocky" },
-    { id: "block", name: "Block", desc: "Geometric" },
-    { id: "doom", name: "Doom", desc: "Gaming classic" },
-    { id: "starwars", name: "Star Wars", desc: "Sci-fi style" },
-    { id: "alligator", name: "Alligator", desc: "Retro 3D" }
+    { id: "delta_corps_priest_1", name: "⚡ Delta Corps" },
+    { id: "slant", name: "Slant" },
+    { id: "standard", name: "Standard" },
+    { id: "banner", name: "Banner" },
+    { id: "block", name: "Block" },
+    { id: "doom", name: "Doom" },
+    { id: "epic", name: "Epic" },
+    { id: "starwars", name: "Star Wars" },
+    { id: "isometric1", name: "Isometric" },
+    { id: "alligator", name: "Alligator" },
+    { id: "graffiti", name: "Graffiti" },
+    { id: "speed", name: "Speed" },
+    { id: "sub-zero", name: "Sub-Zero" },
+    { id: "cyberlarge", name: "Cyberlarge" },
+    { id: "larry3d", name: "Larry 3D" },
+    { id: "shadow", name: "Shadow" },
+    { id: "ogre", name: "Ogre" },
+    { id: "colossal", name: "Colossal" },
+    { id: "cosmic", name: "Cosmic" },
+    { id: "caligraphy", name: "Caligraphy" }
   ]
 
   function refreshArt() {
@@ -61,7 +73,7 @@ BarWidget {
 
   function saveAbout() {
     runAction("save-about")
-    root.statusMessage = "About logo updated!"
+    root.statusMessage = "About logo saved!"
   }
 
   function copyArt() {
@@ -183,7 +195,7 @@ BarWidget {
     // Scrim (darkened backdrop)
     Rectangle {
       anchors.fill: parent
-      color: Qt.rgba(0, 0, 0, 0.72)
+      color: Qt.rgba(0, 0, 0, 0.75)
 
       MouseArea {
         anchors.fill: parent
@@ -191,11 +203,11 @@ BarWidget {
       }
     }
 
-    // Centered Studio Card
+    // Centered Large Studio Card
     BorderSurface {
       id: studioCard
       anchors.centerIn: parent
-      width: Style.space(560)
+      width: Style.space(740)
       implicitHeight: cardContent.implicitHeight + Style.space(36)
       radius: Style.cornerRadius > 0 ? Style.cornerRadius + 2 : 8
       color: Color.popups.background
@@ -212,7 +224,7 @@ BarWidget {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
-        anchors.margins: Style.space(18)
+        anchors.margins: Style.space(20)
         spacing: Style.spacing.sm
 
         // Header Row
@@ -299,15 +311,15 @@ BarWidget {
           }
         }
 
-        // Font Preset Buttons
+        // Font Presets Section (5 columns grid with 20 fonts)
         PanelSectionHeader {
-          text: "FONT PRESETS"
+          text: "FONT PRESETS (" + root.fontPresets.length + " AVAILABLE)"
           foreground: Color.foreground
         }
 
         Grid {
           width: parent.width
-          columns: 4
+          columns: 5
           spacing: Style.spacing.xs
 
           Repeater {
@@ -317,7 +329,7 @@ BarWidget {
               required property var modelData
               required property int index
 
-              width: (parent.width - Style.spacing.xs * 3) / 4
+              width: (parent.width - Style.spacing.xs * 4) / 5
               implicitHeight: Style.space(32)
               radius: Style.cornerRadius > 0 ? Style.cornerRadius : 4
 
@@ -355,7 +367,7 @@ BarWidget {
           }
         }
 
-        // ASCII Live Preview Box
+        // ASCII Live Preview Box (Enlarged)
         PanelSectionHeader {
           text: "LIVE ASCII PREVIEW"
           foreground: Color.foreground
@@ -363,7 +375,7 @@ BarWidget {
 
         BorderSurface {
           width: parent.width
-          height: Style.space(170)
+          height: Style.space(230)
           radius: Style.cornerRadius > 0 ? Style.cornerRadius : 4
           color: Qt.rgba(0, 0, 0, 0.55)
           borderSpec: Border.controlSpec("normal", Color.foreground, Color.accent)
@@ -390,7 +402,7 @@ BarWidget {
 
         PanelSeparator { foreground: Color.foreground }
 
-        // Action Buttons Grid
+        // Action Buttons Grid: Preview, Save, Save About Logo, Copy
         Grid {
           width: parent.width
           columns: 4
@@ -406,7 +418,7 @@ BarWidget {
 
             Row {
               anchors.centerIn: parent
-              spacing: 4
+              spacing: 6
               Text { text: "󱄄"; color: Color.accent; font.pixelSize: Style.font.body; anchors.verticalCenter: parent.verticalCenter }
               Text { text: "Preview"; color: Color.foreground; font.pixelSize: Style.font.caption; font.bold: true; anchors.verticalCenter: parent.verticalCenter }
             }
@@ -419,7 +431,7 @@ BarWidget {
             }
           }
 
-          // Button 2: Save Screensaver
+          // Button 2: Save
           BorderSurface {
             width: (parent.width - Style.spacing.xs * 3) / 4
             height: Style.space(38)
@@ -429,9 +441,9 @@ BarWidget {
 
             Row {
               anchors.centerIn: parent
-              spacing: 4
+              spacing: 6
               Text { text: "\udb80\udc19"; color: Color.foreground; font.pixelSize: Style.font.body; anchors.verticalCenter: parent.verticalCenter }
-              Text { text: "Screensaver"; color: Color.foreground; font.pixelSize: Style.font.caption; font.bold: true; anchors.verticalCenter: parent.verticalCenter }
+              Text { text: "Save"; color: Color.foreground; font.pixelSize: Style.font.caption; font.bold: true; anchors.verticalCenter: parent.verticalCenter }
             }
             MouseArea {
               id: btn2Mouse
@@ -452,9 +464,9 @@ BarWidget {
 
             Row {
               anchors.centerIn: parent
-              spacing: 4
+              spacing: 6
               Text { text: "\udb81\udde0"; color: Color.foreground; font.pixelSize: Style.font.body; anchors.verticalCenter: parent.verticalCenter }
-              Text { text: "About Logo"; color: Color.foreground; font.pixelSize: Style.font.caption; font.bold: true; anchors.verticalCenter: parent.verticalCenter }
+              Text { text: "Save About Logo"; color: Color.foreground; font.pixelSize: Style.font.caption; font.bold: true; anchors.verticalCenter: parent.verticalCenter }
             }
             MouseArea {
               id: btn3Mouse
@@ -475,7 +487,7 @@ BarWidget {
 
             Row {
               anchors.centerIn: parent
-              spacing: 4
+              spacing: 6
               Text { text: "\udb80\udec5"; color: Color.foreground; font.pixelSize: Style.font.body; anchors.verticalCenter: parent.verticalCenter }
               Text { text: "Copy"; color: Color.foreground; font.pixelSize: Style.font.caption; font.bold: true; anchors.verticalCenter: parent.verticalCenter }
             }
