@@ -84,6 +84,7 @@ BarWidget {
     function copy(): void { root.copyArt() }
     function setText(txt: string): void {
       root.inputText = txt
+      if (txtInput.text !== txt) txtInput.text = txt
       root.refreshArt()
     }
     function setFont(f: string): void {
@@ -158,6 +159,14 @@ BarWidget {
     open: false
     triggerMode: "click"
 
+    onOpenChanged: {
+      if (open) {
+        root.refreshArt()
+        txtInput.text = root.inputText
+        txtInput.forceActiveFocus()
+      }
+    }
+
     Column {
       id: popupContent
       width: parent.width
@@ -228,36 +237,23 @@ BarWidget {
           width: Style.space(40)
         }
 
-        BorderSurface {
+        TextField {
+          id: txtInput
           width: parent.width - Style.space(50)
-          height: Style.space(34)
-          radius: Style.cornerRadius > 0 ? Style.cornerRadius : 4
-          color: Style.controlFill(false, textMouse.containsMouse, Color.foreground, Color.accent)
-          borderSpec: Border.controlSpec(txtInput.activeFocus ? "selected" : (textMouse.containsMouse ? "hover-cursor" : "normal"), Color.foreground, Color.accent)
-
-          TextInput {
-            id: txtInput
-            anchors.fill: parent
-            anchors.leftMargin: Style.spacing.sm
-            anchors.rightMargin: Style.spacing.sm
-            verticalAlignment: TextInput.AlignVCenter
-            text: root.inputText
-            color: Color.foreground
-            font.family: Style.font.family
-            font.pixelSize: Style.font.body
-            selectByMouse: true
-            onTextChanged: {
+          text: root.inputText
+          placeholderText: "Type text to convert..."
+          foreground: Color.foreground
+          accent: Color.accent
+          selectByMouse: true
+          anchors.verticalCenter: parent.verticalCenter
+          onTextChanged: {
+            if (root.inputText !== text) {
               root.inputText = text
               debounceTimer.restart()
             }
           }
-
-          MouseArea {
-            id: textMouse
-            anchors.fill: parent
-            hoverEnabled: true
-            cursorShape: Qt.IBeamCursor
-            onClicked: txtInput.forceActiveFocus()
+          onAccepted: {
+            root.refreshArt()
           }
         }
       }
@@ -310,6 +306,7 @@ BarWidget {
               onClicked: {
                 root.currentFont = modelData.id
                 root.refreshArt()
+                txtInput.forceActiveFocus()
               }
             }
           }
