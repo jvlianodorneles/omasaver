@@ -150,20 +150,19 @@ BarWidget {
     }
   }
 
-  PopupCard {
+  KeyboardPanel {
     id: studioPopup
     anchorItem: root
     bar: root.bar
     contentWidth: Style.space(480)
-    contentHeight: fittedContentHeight(popupContent.implicitHeight)
+    contentHeight: popupContent.implicitHeight + Style.spacing.popupPadding * 2 + Style.space(12)
     open: false
-    triggerMode: "click"
+    focusTarget: txtInput
 
     onOpenChanged: {
       if (open) {
         root.refreshArt()
         txtInput.text = root.inputText
-        txtInput.forceActiveFocus()
       }
     }
 
