@@ -62,8 +62,8 @@ BarWidget {
   }
 
   function triggerPreview() {
+    studioWindow.open = false
     runAction("preview")
-    root.statusMessage = "Launching screensaver preview..."
   }
 
   function saveScreensaver() {
