@@ -2,6 +2,8 @@
 
 > **A native Omarchy 4 bar widget and studio for live ASCII art generation, screensaver management (`ttfx`), and branding customization.**
 
+![omasaver preview](preview.png)
+
 `omasaver` transforms text into beautiful ASCII art instantly, integrating seamlessly into your Omarchy 4 desktop workflow and top bar. Easily generate, customize, preview, and sync your ASCII art across your Omarchy screensaver (`screensaver.txt`) and system about branding (`about.txt`).
 
 ---
