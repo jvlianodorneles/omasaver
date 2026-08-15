@@ -6,22 +6,37 @@
   "author": "Dorneles",
   "description": "A native Omarchy 4 bar widget and studio for live ASCII art generation, screensaver management (ttfx), and branding customization.",
   "kinds": [
-    "bar-widget"
+    "bar-widget",
+    "overlay"
   ],
+  "keepLoaded": true,
   "entryPoints": {
-    "barWidget": "BarWidget.qml"
+    "barWidget": "BarWidget.qml",
+    "overlay": "BarWidget.qml"
   },
   "barWidget": {
     "displayName": "Omasaver",
-    "description": "ASCII Art Studio & Screensaver Hub for Omarchy",
+    "description": "ASCII Art & Screensaver Hub for Omarchy",
     "category": "Customization",
     "allowMultiple": false,
     "defaultSection": "right",
     "defaults": {
+      "mode": "always",
       "defaultFont": "delta_corps_priest_1",
       "showLabel": true
     },
     "schema": [
+      {
+        "key": "mode",
+        "type": "enum",
+        "label": "Visibility Mode",
+        "options": [
+          "always",
+          "active-only"
+        ],
+        "defaultValue": "always",
+        "description": "Show always on bar, or auto-hide when idle and only reveal when active or studio open."
+      },
       {
         "key": "defaultFont",
         "type": "enum",

@@ -12,8 +12,15 @@ BarWidget {
   moduleName: "dorneles.omasaver"
 
   // User Settings
+  property string currentMode: (settings && settings.mode !== undefined) ? String(settings.mode) : setting("mode", "always")
   readonly property string defaultFontSetting: setting("defaultFont", "delta_corps_priest_1")
   readonly property bool showLabelSetting: setting("showLabel", true)
+
+  onSettingsChanged: {
+    currentMode = (settings && settings.mode !== undefined) ? String(settings.mode) : setting("mode", "always")
+  }
+
+  readonly property bool isWidgetVisible: currentMode === "always" || (studioWindow && studioWindow.open) || isPreviewing || isBusy
 
   // Live State
   property string inputText: "OMARCHY"
@@ -149,12 +156,14 @@ BarWidget {
     onTriggered: root.refreshArt()
   }
 
-  implicitWidth: button.implicitWidth
-  implicitHeight: root.vertical ? button.implicitHeight : root.barSize
+  visible: isWidgetVisible
+  implicitWidth: !isWidgetVisible ? 0 : button.implicitWidth
+  implicitHeight: !isWidgetVisible ? 0 : (root.vertical ? button.implicitHeight : root.barSize)
 
   // Top Bar Button
   WidgetButton {
     id: button
+    visible: root.isWidgetVisible
     anchors.fill: parent
     bar: root.bar
     text: root.vertical || !root.showLabelSetting
@@ -167,7 +176,7 @@ BarWidget {
     fontSize: Style.font.body
     horizontalMargin: 6
     verticalPadding: 2
-    tooltipText: "omasaver: ASCII Art Studio & Screensaver Hub\n(Click: Open Studio | Middle-click: Preview Screensaver)"
+    tooltipText: "omasaver: ASCII Art & Screensaver Hub\n(Click: Open | Middle-click: Preview Screensaver)"
     onPressed: function(btn) {
       if (btn === Qt.MiddleButton) root.triggerPreview()
       else studioWindow.open = !studioWindow.open
