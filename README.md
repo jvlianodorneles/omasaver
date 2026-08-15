@@ -104,4 +104,11 @@ python3 scripts/omasaver-ctl.py copy "OMARCHY" delta_corps_priest_1
 
 ---
 
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
 Built with ❤️ for [Omarchy](https://omarchy.org/).
+
