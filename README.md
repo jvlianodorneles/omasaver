@@ -47,16 +47,37 @@ cd ~/.config/omarchy/plugins/dorneles.omasaver
 ./install.sh
 ```
 
-The installer automatically sets up dependencies, `shell.json`, Hyprland keybindings (<kbd>Super</kbd> + <kbd>Alt</kbd> + <kbd>O</kbd>), and Omarchy menu entries.
+The installer:
+- Sets up an isolated Python virtual environment (`.venv`) with pinned dependency versions, leaving your system Python untouched.
+- Creates safety backups (`.bak`) of any modified configuration files.
+- Registers Omasaver as an overlay service in `shell.json`.
+- Configures Hyprland keybinding (<kbd>Super</kbd> + <kbd>Alt</kbd> + <kbd>O</kbd>) in `bindings.lua`.
+- Adds entries to the Omarchy root menu (`omarchy-menu.jsonc`).
+- Reloads the shell and Hyprland.
 
 ---
 
 ## 🗑️ Removal / Uninstallation
 
+To cleanly and completely uninstall Omasaver and revert all configuration changes:
+
 ```bash
-rm -rf ~/.config/omarchy/plugins/dorneles.omasaver
-omarchy-shell shell rescanPlugins
+cd ~/.config/omarchy/plugins/dorneles.omasaver
+./uninstall.sh
 ```
+
+Or run directly:
+
+```bash
+bash ~/.config/omarchy/plugins/dorneles.omasaver/uninstall.sh
+```
+
+The uninstaller automatically:
+- Removes the isolated Python virtual environment (`.venv`) and plugin directory.
+- Reverts plugin registration from `shell.json`.
+- Reverts keybinding entries from `bindings.lua`.
+- Reverts menu entries from `omarchy-menu.jsonc`.
+- Reloads the shell and Hyprland.
 
 ---
 

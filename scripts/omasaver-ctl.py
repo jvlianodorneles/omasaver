@@ -6,6 +6,16 @@ import time
 import shutil
 import subprocess
 
+# Auto-detect local virtual environment (.venv) site-packages if present
+_script_dir = os.path.dirname(os.path.realpath(__file__))
+_plugin_dir = os.path.dirname(_script_dir)
+_venv_dir = os.path.join(_plugin_dir, ".venv")
+if os.path.isdir(_venv_dir):
+    import glob
+    for _site_pkg in glob.glob(os.path.join(_venv_dir, "lib", "python*", "site-packages")):
+        if _site_pkg not in sys.path:
+            sys.path.insert(0, _site_pkg)
+
 try:
     import pyfiglet
 except ImportError:
